@@ -136,10 +136,29 @@ const insertList = (nameProduct, quantity, price) => {
     var cel = row.insertCell(i);
     cel.textContent = item[i];
   }
+
+  
   insertButton(row.insertCell(-1))
   document.getElementById("newInput").value = "";
   document.getElementById("newQuantity").value = "";
   document.getElementById("newPrice").value = "";
 
   removeElement()
+}
+
+const updateItem = async (inputProduct, inputQuantity, inputPrice) => {
+  const formData = new FormData();
+  formData.append('nome', inputProduct);
+  formData.append('quantidade', inputQuantity);
+  formData.append('valor', inputPrice);
+
+  let url = 'http://127.0.0.1:5000/produto';
+  fetch(url, {
+    method: 'put',
+    body: formData
+  })
+    .then((response) => response.json())
+    .catch((error) => {
+      console.error('Error:', error);
+    });
 }
